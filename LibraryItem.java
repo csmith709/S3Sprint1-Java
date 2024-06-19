@@ -65,6 +65,9 @@ public abstract class LibraryItem {
         this.status =  status;
     }
 
+    public abstract boolean borrowItem(int numberOfCopies);
+    public abstract boolean returnItem(int numberOfCopies);
+
     //to string
     @Override
         public String toString() {

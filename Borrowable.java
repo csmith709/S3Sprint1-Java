@@ -1,6 +1,5 @@
-package Java;
 
 public interface Borrowable {
-    boolean borrowItem(int numberOfCopies);
+    boolean borrowedItems(int numberOfCopies);
     boolean returnItem(int numberOfCopies);
 }

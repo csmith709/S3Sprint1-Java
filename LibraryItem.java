@@ -1,6 +1,6 @@
 import java.util.List;
 
-public abstract class LibraryItem {
+public abstract class LibraryItem implements Borrowable{
     private String itemId;
     private String title;
     private Author author;
@@ -66,6 +66,7 @@ public abstract class LibraryItem {
     }
 
     public abstract boolean borrowItem(int numberOfCopies);
+
     public abstract boolean returnItem(int numberOfCopies);
 
     //to string

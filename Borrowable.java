@@ -1,5 +1,5 @@
 
 public interface Borrowable {
-    boolean borrowedItems(int numberOfCopies);
+    boolean borrowItem(int numberOfCopies);
     boolean returnItem(int numberOfCopies);
 }

@@ -14,49 +14,50 @@ public abstract class Patron {
         this.borrowedItems = new ArrayList<>();
     }
 
-    //get
+
     public String getName() {
         return name;
-    }
-
-    public String getAddress() {
-        return address;
     }
 
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public List<LibraryItem> getBorrowedItems() {
-        return borrowedItems;
+    public String getAddress() {
+        return address;
     }
 
-    //set
+
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+
+    public List<LibraryItem> getBorrowedItems() {
+        return borrowedItems;
+    }
+ 
+    public void borrowItem(LibraryItem item) {
+        borrowedItems.add(item);
+    }
+ 
+    public void returnItem(LibraryItem item) {
+        borrowedItems.remove(item);
     }
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public void setBorrowedItems(List<LibraryItem> borrowItems) {
         this.borrowedItems = borrowItems;
     }
 
-    public void borrowItem(LibraryItem item) {
-        borrowedItems.add(item);
-    }
 
-    public void returnItem(LibraryItem item) {
-        borrowedItems.remove(item);
-    }
-
-    //to string
     @Override
     public String toString() {
         return "Patron{" +
@@ -65,5 +66,6 @@ public abstract class Patron {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", borrowedItems=" + borrowedItems +
                 '}';
-}
+    }
+
 }

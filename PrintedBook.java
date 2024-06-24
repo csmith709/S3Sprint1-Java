@@ -1,12 +1,10 @@
-public class PrintdBook extends Book{
+public class PrintedBook extends Book {
 
     private int pageNumber;
     private String coverStyle;
 
-    public PrintdBook(String title, Author author, String ISBN, String publisher, int totalCopies, int availableCopies, Status status, String itemId, int pageNumber, String coverStyle) {
-
+    public PrintedBook(String title, Author author, String ISBN, String publisher, int totalCopies, int availableCopies, Status status, String itemId, int pageNumber, String coverStyle) {
         super(itemId, title, author, ISBN, publisher, totalCopies, availableCopies, status);
-
         this.pageNumber = pageNumber;
         this.coverStyle = coverStyle;
     }
@@ -27,33 +25,40 @@ public class PrintdBook extends Book{
         this.coverStyle = coverStyle;
     }
 
-   @Override
+    @Override
     public boolean borrowItem(int numberOfCopies) {
         if (getAvailableCopies() >= numberOfCopies) {
             setAvailableCopies(getAvailableCopies() - numberOfCopies);
-            setStatus(Status.CHECKED_OUT);
-    return true;
-        }
-    return false;
-    }
- 
-    // Implement returnItem method
-    @Override
-    public boolean returnItem(int numberOfCopies) {
-        setAvailableCopies(getAvailableCopies() + numberOfCopies);
-        if (getAvailableCopies() > 0) {
-            setStatus(Status.AVAILABLE);
+            if (getAvailableCopies() == 0) {
+                setStatus(Status.CHECKED_OUT);
+            }
             return true;
         }
         return false;
     }
 
     @Override
+    public boolean returnItem(int numberOfCopies) {
+        setAvailableCopies(getAvailableCopies() + numberOfCopies);
+        if (getAvailableCopies() > 0) {
+            setStatus(Status.AVAILABLE);
+        }
+        return true;
+    }
+
+    @Override
     public String toString() {
-        return "PrintdBook{" +
-                "pageNumber=" + pageNumber +
+        return "PrintedBook{" +
+                "itemId='" + getItemId() + '\'' +
+                ", title='" + getTitle() + '\'' +
+                ", author=" + getAuthor() +
+                ", ISBN='" + getISBN() + '\'' +
+                ", publisher='" + getPublisher() + '\'' +
+                ", totalCopies=" + getTotalCopies() +
+                ", availableCopies=" + getAvailableCopies() +
+                ", status=" + getStatus() +
+                ", pageNumber=" + pageNumber +
                 ", coverStyle='" + coverStyle + '\'' +
                 '}';
     }
-    
 }

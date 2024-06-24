@@ -1,13 +1,11 @@
 
-public class AudioBook extends Book{
+public class AudioBook extends Book {
 
     private int fileSize;
     private String audioFormat;
 
     public AudioBook(String title, Author author, String ISBN, String publisher, int totalCopies, int availableCopies, Status status, String itemId, int fileSize, String audioFormat) {
-
         super(itemId, title, author, ISBN, publisher, totalCopies, availableCopies, status);
-
         this.fileSize = fileSize;
         this.audioFormat = audioFormat;
     }
@@ -32,13 +30,14 @@ public class AudioBook extends Book{
     public boolean borrowItem(int numberOfCopies) {
         if (getAvailableCopies() >= numberOfCopies) {
             setAvailableCopies(getAvailableCopies() - numberOfCopies);
-            setStatus(Status.CHECKED_OUT);
-    return true;
+            if (getAvailableCopies() == 0) {
+                setStatus(Status.CHECKED_OUT);
+            }
+            return true;
         }
-    return false;
+        return false;
     }
- 
-    // Implement returnItem method
+
     @Override
     public boolean returnItem(int numberOfCopies) {
         setAvailableCopies(getAvailableCopies() + numberOfCopies);
@@ -48,13 +47,12 @@ public class AudioBook extends Book{
         }
         return false;
     }
-   
+
     @Override
     public String toString() {
         return "AudioBook{" +
                 "fileSize=" + fileSize +
                 ", audioFormat='" + audioFormat + '\'' +
-                '}';
+                "} " + super.toString();
     }
-    
 }

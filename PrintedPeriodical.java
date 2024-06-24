@@ -1,18 +1,15 @@
-public class PrintedPeriodical extends Periodical{
+public class PrintedPeriodical extends Periodical {
     private String coverType;
 
     public PrintedPeriodical(String itemId, String title, Author author, String ISBN, String publisher, int totalCopies, int availableCopies, Status status, String coverType) {
-        //inherited
         super(itemId, title, author, ISBN, publisher, totalCopies, availableCopies, status);
         this.coverType = coverType;
     }
 
-    //get
     public String getCoverType() {
         return coverType;
     }
 
-    //set
     public void setCoverType(String coverType) {
         this.coverType = coverType;
     }
@@ -36,7 +33,6 @@ public class PrintedPeriodical extends Periodical{
         return true;
     }
 
-    //to string
     @Override
     public String toString() {
         return "PrintedPeriodical{" +
@@ -51,5 +47,4 @@ public class PrintedPeriodical extends Periodical{
                 ", status=" + getStatus() +
                 '}';
     }
-
 }

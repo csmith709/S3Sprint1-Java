@@ -1,18 +1,15 @@
-public class ElectronicPeriodical extends Periodical{
+public class ElectronicPeriodical extends Periodical {
     private String fileFormat;
 
     public ElectronicPeriodical(String itemId, String title, Author author, String ISBN, String publisher, int totalCopies, int availableCopies, Status status, String fileFormat) {
-        //inherited
         super(itemId, title, author, ISBN, publisher, totalCopies, availableCopies, status);
         this.fileFormat = fileFormat;
     }
 
-    //get
     public String getFileFormat() {
         return fileFormat;
     }
 
-    //set
     public void setFileFormat(String fileFormat) {
         this.fileFormat = fileFormat;
     }
@@ -36,11 +33,10 @@ public class ElectronicPeriodical extends Periodical{
         return true;
     }
 
-    //to string
     @Override
     public String toString() {
         return "ElectronicPeriodical{" +
-                "coverType='" + fileFormat + '\'' +
+                "fileFormat='" + fileFormat + '\'' +
                 ", itemId='" + getItemId() + '\'' +
                 ", title='" + getTitle() + '\'' +
                 ", author=" + getAuthor() +
@@ -51,6 +47,4 @@ public class ElectronicPeriodical extends Periodical{
                 ", status=" + getStatus() +
                 '}';
     }
-
-   
 }

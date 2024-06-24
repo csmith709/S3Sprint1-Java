@@ -1,24 +1,37 @@
-public class PrintedPeriodical extends Periodical {
-    private String coverType;
+public class PrintedBook extends Book {
 
-    public PrintedPeriodical(String itemId, String title, Author author, String ISBN, String publisher, int totalCopies, int availableCopies, Status status, String coverType) {
+    private int pageNumber;
+    private String coverStyle;
+
+    public PrintedBook(String title, Author author, String ISBN, String publisher, int totalCopies, int availableCopies, Status status, String itemId, int pageNumber, String coverStyle) {
         super(itemId, title, author, ISBN, publisher, totalCopies, availableCopies, status);
-        this.coverType = coverType;
+        this.pageNumber = pageNumber;
+        this.coverStyle = coverStyle;
     }
 
-    public String getCoverType() {
-        return coverType;
+    public int getPageNumber() {
+        return pageNumber;
     }
 
-    public void setCoverType(String coverType) {
-        this.coverType = coverType;
+    public void setPageNumber(int pageNumber) {
+        this.pageNumber = pageNumber;
+    }
+
+    public String getCoverStyle() {
+        return coverStyle;
+    }
+
+    public void setCoverStyle(String coverStyle) {
+        this.coverStyle = coverStyle;
     }
 
     @Override
     public boolean borrowItem(int numberOfCopies) {
         if (getAvailableCopies() >= numberOfCopies) {
             setAvailableCopies(getAvailableCopies() - numberOfCopies);
-            setStatus(Status.CHECKED_OUT);
+            if (getAvailableCopies() == 0) {
+                setStatus(Status.CHECKED_OUT);
+            }
             return true;
         }
         return false;
@@ -35,9 +48,8 @@ public class PrintedPeriodical extends Periodical {
 
     @Override
     public String toString() {
-        return "PrintedPeriodical{" +
-                "coverType='" + coverType + '\'' +
-                ", itemId='" + getItemId() + '\'' +
+        return "PrintedBook{" +
+                "itemId='" + getItemId() + '\'' +
                 ", title='" + getTitle() + '\'' +
                 ", author=" + getAuthor() +
                 ", ISBN='" + getISBN() + '\'' +
@@ -45,6 +57,8 @@ public class PrintedPeriodical extends Periodical {
                 ", totalCopies=" + getTotalCopies() +
                 ", availableCopies=" + getAvailableCopies() +
                 ", status=" + getStatus() +
+                ", pageNumber=" + pageNumber +
+                ", coverStyle='" + coverStyle + '\'' +
                 '}';
     }
 }

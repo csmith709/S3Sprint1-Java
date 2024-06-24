@@ -1,26 +1,27 @@
-public class Employee extends Patron{
+public class Employee extends Patron {
     private String employeeId;
 
-    public Employee(String name, String address, String phoneNumber, String employeeId) {
-        super(name, address, phoneNumber);
+    public Employee(String patronId, String name, String address, String phoneNumber, String employeeId) {
+        super(patronId, name, address, phoneNumber); // Pass patronId to the super constructor
         this.employeeId = employeeId;
     }
 
-    //get
+    // Getter for employeeId
     public String getEmployeeId() {
         return employeeId;
     }
 
-    //set
+    // Setter for employeeId
     public void setEmployeeId(String employeeId) {
         this.employeeId = employeeId;
     }
 
-    //to String
+    // toString method
     @Override
     public String toString() {
         return "Employee{" +
                 "employeeId='" + employeeId + '\'' +
+                ", patronId='" + getPatronId() + '\'' + // Include patronId
                 ", name='" + getName() + '\'' +
                 ", address='" + getAddress() + '\'' +
                 ", phoneNumber='" + getPhoneNumber() + '\'' +

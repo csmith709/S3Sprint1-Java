@@ -15,8 +15,11 @@ public class LibraryMenu {
             System.out.println("3. Delete Library Item");
             System.out.println("4. Borrow Library Item");
             System.out.println("5. Return Library Item");
-            System.out.println("6. Exit");
-            System.out.print("Enter your choice (1-6): ");
+            System.out.println("6. View Available Items");
+            System.out.println("7. View Checked-Out Items");
+            System.out.println("8. View Items Borrowed by Specific Patron");
+            System.out.println("9. Exit");
+            System.out.print("Enter your choice (1-9): ");
             choice = scanner.nextInt();
             scanner.nextLine(); // consume newline
 
@@ -37,12 +40,21 @@ public class LibraryMenu {
                     returnLibraryItem();
                     break;
                 case 6:
+                    viewAvailableItems();
+                    break;
+                case 7:
+                    viewCheckedOutItems();
+                    break;
+                case 8:
+                    viewItemsBorrowedByPatron();
+                    break;
+                case 9:
                     System.out.println("Exiting the system. Goodbye!");
                     break;
                 default:
-                    System.out.println("Invalid choice. Please enter a number between 1 and 6.");
+                    System.out.println("Invalid choice. Please enter a number between 1 and 9.");
             }
-        } while (choice != 6);
+        } while (choice != 9);
 
         scanner.close();
     }
@@ -198,6 +210,35 @@ public class LibraryMenu {
             }
         } else {
             System.out.println("Library item not found.");
+        }
+    }
+
+    private static void viewAvailableItems() {
+        System.out.println("Available Library Items:");
+        for (LibraryItem item : library.getAvailableItems()) {
+            System.out.println(item);
+        }
+    }
+
+    private static void viewCheckedOutItems() {
+        System.out.println("Checked-Out Library Items:");
+        for (LibraryItem item : library.getCheckedOutItems()) {
+            System.out.println(item);
+        }
+    }
+
+    private static void viewItemsBorrowedByPatron() {
+        System.out.print("Enter the patron ID to view borrowed items: ");
+        String patronId = scanner.nextLine();
+        Patron patron = library.getPatron(patronId);
+
+        if (patron != null) {
+            System.out.println("Items borrowed by " + patron.getName() + ":");
+            for (LibraryItem item : library.getBorrowedItems(patron)) {
+                System.out.println(item);
+            }
+        } else {
+            System.out.println("Patron not found.");
         }
     }
 }

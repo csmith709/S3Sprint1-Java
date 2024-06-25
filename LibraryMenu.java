@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.List;
 
 public class LibraryMenu {
     private static Library library = new Library();
@@ -18,8 +19,11 @@ public class LibraryMenu {
             System.out.println("6. View Available Items");
             System.out.println("7. View Checked-Out Items");
             System.out.println("8. View Items Borrowed by Specific Patron");
-            System.out.println("9. Exit");
-            System.out.print("Enter your choice (1-9): ");
+            System.out.println("9. Add Patron");
+            System.out.println("10. Edit Patron");
+            System.out.println("11. Delete Patron");
+            System.out.println("12. Exit");
+            System.out.print("Enter your choice (1-12): ");
             choice = scanner.nextInt();
             scanner.nextLine(); // consume newline
 
@@ -49,14 +53,64 @@ public class LibraryMenu {
                     viewItemsBorrowedByPatron();
                     break;
                 case 9:
+                    addPatron();
+                    break;
+                case 10:
+                    editPatron();
+                    break;
+                case 11:
+                    deletePatron();
+                    break;
+                case 12:
                     System.out.println("Exiting the system. Goodbye!");
                     break;
                 default:
-                    System.out.println("Invalid choice. Please enter a number between 1 and 9.");
+                    System.out.println("Invalid choice. Please enter a number between 1 and 12.");
             }
-        } while (choice != 9);
+        } while (choice != 12);
 
         scanner.close();
+    }
+
+    private static void addPatron() {
+        System.out.print("Enter patron type (Student or Employee): ");
+        String patronType = scanner.nextLine();
+        System.out.print("Enter patron ID: ");
+        String patronId = scanner.nextLine();
+        System.out.print("Enter name: ");
+        String name = scanner.nextLine();
+        System.out.print("Enter address: ");
+        String address = scanner.nextLine();
+        System.out.print("Enter phone number: ");
+        String phoneNumber = scanner.nextLine();
+
+        if (patronType.equalsIgnoreCase("student")) {
+            library.addPatron(new Student(patronId, name, address, phoneNumber, 0));
+        } else if (patronType.equalsIgnoreCase("employee")) {
+            library.addPatron(new Employee(patronId, name, address, phoneNumber, phoneNumber));
+        } else {
+            System.out.println("Invalid patron type.");
+        }
+    }
+
+    private static void editPatron() {
+        System.out.print("Enter patron ID to edit: ");
+        String patronId = scanner.nextLine();
+        System.out.print("Enter new name: ");
+        String name = scanner.nextLine();
+        System.out.print("Enter new address: ");
+        String address = scanner.nextLine();
+        System.out.print("Enter new phone number: ");
+        String phoneNumber = scanner.nextLine();
+
+        library.editPatron(patronId, name, address, phoneNumber);
+    }
+
+    private static void deletePatron() {
+        System.out.print("Enter patron ID to delete: ");
+        String patronId = scanner.nextLine();
+
+        library.deletePatron(patronId);
     }
 
     private static void addLibraryItem() {
@@ -92,7 +146,7 @@ public class LibraryMenu {
                 scanner.nextLine(); // consume newline
                 System.out.print("Enter cover style: ");
                 String coverStyle = scanner.nextLine();
-                item = new PrintedBook(title, author, ISBN, publisher, totalCopies, availableCopies, null, itemId, pageNumber, coverStyle);
+                item = new PrintedBook(title, author, ISBN, publisher, totalCopies, availableCopies, Status.AVAILABLE, itemId, pageNumber, coverStyle);
                 break;
             case "ebook":
                 System.out.print("Enter file size: ");
@@ -100,7 +154,7 @@ public class LibraryMenu {
                 scanner.nextLine(); // consume newline
                 System.out.print("Enter file format: ");
                 String fileFormat = scanner.nextLine();
-                item = new EBook(title, author, ISBN, publisher, totalCopies, availableCopies, null, itemId, fileFormat, fileSize);
+                item = new EBook(title, author, ISBN, publisher, totalCopies, availableCopies, Status.AVAILABLE, itemId, fileFormat, fileSize);
                 break;
             case "audiobook":
                 System.out.print("Enter file size: ");
@@ -108,7 +162,7 @@ public class LibraryMenu {
                 scanner.nextLine(); // consume newline
                 System.out.print("Enter audio format: ");
                 String audioFormat = scanner.nextLine();
-                item = new AudioBook(title, author, ISBN, publisher, totalCopies, availableCopies, null, itemId, fileSize, audioFormat);
+                item = new AudioBook(title, author, ISBN, publisher, totalCopies, availableCopies, Status.AVAILABLE, itemId, fileSize, audioFormat);
                 break;
             case "printedperiodical":
                 System.out.print("Enter cover type: ");
@@ -215,8 +269,13 @@ public class LibraryMenu {
 
     private static void viewAvailableItems() {
         System.out.println("Available Library Items:");
-        for (LibraryItem item : library.getAvailableItems()) {
-            System.out.println(item);
+        List<LibraryItem> availableItems = library.getAvailableItems();
+        if (availableItems.isEmpty()) {
+            System.out.println("No available items.");
+        } else{
+            for (LibraryItem item : availableItems) {
+                System.out.println(item);
+            }
         }
     }
 

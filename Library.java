@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class Library {
 
     private List<LibraryItem> libraryItems;
@@ -30,6 +31,32 @@ public class Library {
         }
     }
 
+    public void addPatron(Patron patron) {
+        patrons.add(patron);
+    }
+
+    public void editPatron(String patronId, String name, String address, String phoneNumber) {
+        Patron patron = getPatron(patronId);
+        if (patron != null) {
+            patron.setName(name);
+            patron.setAddress(address);
+            patron.setPhoneNumber(phoneNumber);
+            System.out.println("Patron details updated successfully.");
+        } else {
+            System.out.println("Patron not found.");
+        }
+    }
+
+    public void deletePatron(String patronId) {
+        Patron patron = getPatron(patronId);
+        if (patron != null) {
+            patrons.remove(patron);
+            System.out.println("Patron deleted successfully.");
+        } else {
+            System.out.println("Patron not found.");
+        }
+    }
+
     public LibraryItem getLibraryItem(String itemId) {
         for (LibraryItem item : libraryItems) {
             if (item.getItemId().equals(itemId)) {
@@ -41,10 +68,6 @@ public class Library {
 
     public void addAuthor(Author author) {
         authors.add(author);
-    }
-
-    public void addPatron(Patron patron) {
-        patrons.add(patron);
     }
 
     public List<LibraryItem> getLibraryItems() {
